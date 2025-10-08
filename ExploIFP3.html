@@ -269,6 +269,42 @@
             animation: fadeInUp 0.6s ease;
         }
 
+        .activity-view {
+            display: none;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .activity-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .activity-section + .activity-section {
+            margin-top: 20px;
+        }
+
+        .activity-section h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .activity-section ul,
+        .activity-section ol {
+            margin-left: 20px;
+            padding-left: 10px;
+        }
+
+        .activity-section li {
+            margin-bottom: 6px;
+        }
+
         .metiers-header {
             text-align: center;
             margin-bottom: 40px;
@@ -570,43 +606,33 @@
     Activités
   </button>
   <div class="dropdown-content" id="activitesDropdown">
-    <a href="Activites/20T1-secteurs/index.html" data-icon="📂" style="position: relative;">
+    <a href="#" onclick="return showActivity('20t1-secteurs');" data-icon="📂" style="position: relative;">
       20T1 secteurs
       <div class="resource-preview">
         <img src="RessourcesIMG/20T1-secteurs.png" alt="Aperçu 20T1 secteurs" onerror="this.style.display='none';">
       </div>
     </a>
 
-    <a href="#" onclick="showMonAvatar()" data-icon="🧑" style="position: relative;">
-    Mon avatar
-    <div class="resource-preview">
-        <img src="RessourcesIMG/MonAvatar.png" alt="Aperçu Mon avatar" onerror="this.style.display='none';">
-    </div>
-    </a>
-
-<!-- ==
-
-    <a href="Activites/Mon-avatar/index.html" data-icon="🧑" style="position: relative;">
+    <a href="#" onclick="return showActivity('mon-avatar');" data-icon="🧑" style="position: relative;">
       Mon avatar
       <div class="resource-preview">
-        <img src="RessourcesIMG/Mon-avatar.png" alt="Aperçu Mon avatar" onerror="this.style.display='none';">
+        <img src="RessourcesIMG/MonAvatar.png" alt="Aperçu Mon avatar" onerror="this.style.display='none';">
       </div>
     </a>
-== -->
 
-    <a href="Activites/Mythes-et-realites/index.html" data-icon="❓" style="position: relative;">
+    <a href="#" onclick="return showActivity('mythes-et-realites');" data-icon="❓" style="position: relative;">
       Mythes et réalités
       <div class="resource-preview">
         <img src="RessourcesIMG/Mythes-et-realites.png" alt="Aperçu Mythes et réalités" onerror="this.style.display='none';">
       </div>
     </a>
-    <a href="Activites/RIASEC/index.html" data-icon="🔎" style="position: relative;">
+    <a href="#" onclick="return showActivity('riasec');" data-icon="🔎" style="position: relative;">
       RIASEC
       <div class="resource-preview">
         <img src="RessourcesIMG/RIASEC.png" alt="Aperçu RIASEC" onerror="this.style.display='none';">
       </div>
     </a>
-    <a href="Activites/Systeme-scolaire/index.html" data-icon="🏫" style="position: relative;">
+    <a href="#" onclick="return showActivity('systeme-scolaire');" data-icon="🏫" style="position: relative;">
       Système scolaire
       <div class="resource-preview">
         <img src="RessourcesIMG/Systeme-scolaire.png" alt="Aperçu Système scolaire" onerror="this.style.display='none';">
@@ -654,20 +680,278 @@
             </div>
         </div>
 
-        <!-- === Vue Mon Avatar (au départ cachée) === -->
-        <div id="monAvatar-view" class="metiers-section" style="display:none;">
+        <!-- === Activités pédagogiques (au départ cachées) === -->
+        <div id="monAvatar-view" class="activity-view" style="display:none;">
             <div class="metiers-header">
-                <h2>Mon avatar</h2>
-                <p>
-                    Dans cette activité, tu vas créer ton propre avatar en lien avec un métier qui t intéresse.
-                    Imagine-toi dans ce rôle et réalise une image simple et claire : un avatar rectangulaire,
-                    sur fond blanc, avec le titre du métier écrit en français.
-                </p>
-                <p>
-                    Tu as une fiche pédagogique pour t expliquer les consignes, une présentation qui te guide étape par étape,
-                    et un document d exemples pour t inspirer. Le but est que tu explores des métiers, que tu t y projettes
-                    et que tu exprimes ta créativité à travers ton avatar.
-                </p>
+                <h2>Activité Mon avatar</h2>
+                <p>Crée un avatar qui représente tes forces, tes intérêts et les métiers qui t'inspirent.</p>
+            </div>
+            <div class="activity-content">
+                <div class="activity-section">
+                    <h3>Objectifs pédagogiques</h3>
+                    <ul>
+                        <li>Amener l'élève à dresser un portrait de ses forces, intérêts et valeurs.</li>
+                        <li>Favoriser l'expression de soi par un médium créatif.</li>
+                        <li>Relier les traits personnels aux exigences des métiers explorés.</li>
+                    </ul>
+                </div>
+                <div class="activity-section">
+                    <h3>Compétences visées</h3>
+                    <ul>
+                        <li>Compétence 1&nbsp;: Se connaître pour faire des choix éclairés.</li>
+                        <li>Compétence 3&nbsp;: Communiquer sa démarche d'orientation.</li>
+                    </ul>
+                </div>
+                <div class="activity-section">
+                    <h3>Durée</h3>
+                    <ul>
+                        <li>1 période de 75 minutes.</li>
+                    </ul>
+                </div>
+                <div class="activity-section">
+                    <h3>Matériel requis</h3>
+                    <ul>
+                        <li>Ordinateurs ou tablettes avec l'application de création d'avatar.</li>
+                        <li>Fiche réflexive imprimée ou numérique.</li>
+                        <li>Casques d'écoute (optionnel).</li>
+                    </ul>
+                </div>
+                <div class="activity-section">
+                    <h3>Déroulement proposé</h3>
+                    <ol>
+                        <li><strong>Introduction (10 min)</strong>&nbsp;: Discussion sur l'importance de se connaître avant d'explorer les métiers.</li>
+                        <li><strong>Création de l'avatar (30 min)</strong>&nbsp;: Les élèves conçoivent un avatar qui illustre leurs forces et leurs intérêts.</li>
+                        <li><strong>Analyse guidée (20 min)</strong>&nbsp;: À partir d'une grille fournie, ils associent chaque élément choisi à un atout personnel.</li>
+                        <li><strong>Partage (15 min)</strong>&nbsp;: Présentation de l'avatar à un pair et rétroaction constructive.</li>
+                    </ol>
+                </div>
+                <div class="activity-section">
+                    <h3>Évaluation</h3>
+                    <ul>
+                        <li>Grille d'autoévaluation sur la connaissance de soi.</li>
+                        <li>Qualité des liens établis entre l'avatar et les forces personnelles.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="activite-20t1-secteurs" class="activity-view" style="display:none;">
+            <div class="metiers-header">
+                <h2>Activité 20T1 secteurs</h2>
+                <p>Explore les secteurs de formation professionnelle et fais des liens avec tes aspirations.</p>
+            </div>
+            <div class="activity-content">
+                <div class="activity-section">
+                    <h3>Objectifs pédagogiques</h3>
+                    <ul>
+                        <li>Explorer les secteurs de formation professionnelle offerts dans la région.</li>
+                        <li>Relier les secteurs d'intérêt aux talents et aux aspirations des élèves.</li>
+                        <li>Développer la capacité à utiliser des outils numériques de recherche d'information.</li>
+                    </ul>
+                </div>
+                <div class="activity-section">
+                    <h3>Compétences visées</h3>
+                    <ul>
+                        <li>Compétence 1&nbsp;: Se connaître et explorer le monde du travail.</li>
+                        <li>Compétence 2&nbsp;: S'orienter en utilisant des ressources numériques fiables.</li>
+                    </ul>
+                </div>
+                <div class="activity-section">
+                    <h3>Durée</h3>
+                    <ul>
+                        <li>2 périodes de 60 minutes.</li>
+                    </ul>
+                </div>
+                <div class="activity-section">
+                    <h3>Matériel requis</h3>
+                    <ul>
+                        <li>Appareil numérique (ordinateur ou tablette) avec accès à Internet.</li>
+                        <li>Fiches de prise de notes pour chaque secteur.</li>
+                        <li>Tableau ou support collaboratif en ligne (ex.&nbsp;: Jamboard, Padlet).</li>
+                    </ul>
+                </div>
+                <div class="activity-section">
+                    <h3>Déroulement proposé</h3>
+                    <ol>
+                        <li><strong>Mise en situation (10 min)</strong>&nbsp;: Présenter les secteurs de formation disponibles sur la plateforme et rappeler les liens avec le projet personnel de l'élève.</li>
+                        <li><strong>Exploration guidée (40 min)</strong>&nbsp;: En équipes, les élèves consultent les ressources en ligne et remplissent leur fiche sectorielle.</li>
+                        <li><strong>Mise en commun (20 min)</strong>&nbsp;: Chaque équipe partage un secteur découvert et souligne trois faits marquants.</li>
+                        <li><strong>Retour réflexif (10 min)</strong>&nbsp;: Les élèves identifient les secteurs qui les interpellent et justifient leur choix dans leur journal de bord.</li>
+                    </ol>
+                </div>
+                <div class="activity-section">
+                    <h3>Évaluation</h3>
+                    <ul>
+                        <li>Observation des échanges durant l'exploration.</li>
+                        <li>Qualité des fiches remplies.</li>
+                        <li>Autoévaluation des apprentissages.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="activite-mythes-et-realites" class="activity-view" style="display:none;">
+            <div class="metiers-header">
+                <h2>Activité Mythes et réalités</h2>
+                <p>Démystifie les croyances autour de la formation professionnelle grâce à des échanges dynamiques.</p>
+            </div>
+            <div class="activity-content">
+                <div class="activity-section">
+                    <h3>Objectifs pédagogiques</h3>
+                    <ul>
+                        <li>Démystifier des croyances entourant la formation professionnelle et les métiers.</li>
+                        <li>Développer l'esprit critique face aux sources d'information.</li>
+                        <li>Encourager les échanges et l'écoute active au sein du groupe.</li>
+                    </ul>
+                </div>
+                <div class="activity-section">
+                    <h3>Compétences visées</h3>
+                    <ul>
+                        <li>Compétence 2&nbsp;: Explorer le monde scolaire et professionnel.</li>
+                        <li>Compétence 3&nbsp;: Construire son plan d'action professionnel.</li>
+                    </ul>
+                </div>
+                <div class="activity-section">
+                    <h3>Durée</h3>
+                    <ul>
+                        <li>2 périodes de 50 minutes.</li>
+                    </ul>
+                </div>
+                <div class="activity-section">
+                    <h3>Matériel requis</h3>
+                    <ul>
+                        <li>Cartes «&nbsp;mythe ou réalité&nbsp;» imprimées ou numériques.</li>
+                        <li>Accès à des ressources de validation (sites Web, fiches métiers, témoignages vidéo).</li>
+                        <li>Tableau blanc ou outil numérique collaboratif.</li>
+                    </ul>
+                </div>
+                <div class="activity-section">
+                    <h3>Déroulement proposé</h3>
+                    <ol>
+                        <li><strong>Activation des connaissances (10 min)</strong>&nbsp;: Brainstorming sur les idées préconçues à propos de la formation professionnelle.</li>
+                        <li><strong>Atelier en équipes (40 min)</strong>&nbsp;: Chaque équipe pige des cartes et détermine si l'énoncé est un mythe ou une réalité en justifiant sa réponse avec des sources.</li>
+                        <li><strong>Plénière (30 min)</strong>&nbsp;: Mise en commun et rectification des mythes les plus persistants.</li>
+                        <li><strong>Synthèse individuelle (20 min)</strong>&nbsp;: Les élèves rédigent trois apprentissages clés et une question qu'ils souhaitent approfondir.</li>
+                    </ol>
+                </div>
+                <div class="activity-section">
+                    <h3>Évaluation</h3>
+                    <ul>
+                        <li>Qualité des justifications présentées.</li>
+                        <li>Participation active aux discussions.</li>
+                        <li>Pertinence de la synthèse individuelle.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="activite-riasec" class="activity-view" style="display:none;">
+            <div class="metiers-header">
+                <h2>Activité RIASEC</h2>
+                <p>Identifie ton profil RIASEC et relie-le aux métiers présentés dans la plateforme.</p>
+            </div>
+            <div class="activity-content">
+                <div class="activity-section">
+                    <h3>Objectifs pédagogiques</h3>
+                    <ul>
+                        <li>Comprendre les six dimensions du modèle RIASEC.</li>
+                        <li>Identifier son profil dominant à partir d'un questionnaire ou d'activités pratiques.</li>
+                        <li>Relier son profil aux secteurs et métiers présentés sur la plateforme.</li>
+                    </ul>
+                </div>
+                <div class="activity-section">
+                    <h3>Compétences visées</h3>
+                    <ul>
+                        <li>Compétence 1&nbsp;: Se connaître en explorant ses intérêts.</li>
+                        <li>Compétence 2&nbsp;: Mettre en relation ses intérêts avec des environnements de travail.</li>
+                    </ul>
+                </div>
+                <div class="activity-section">
+                    <h3>Durée</h3>
+                    <ul>
+                        <li>1 période de 60 minutes.</li>
+                    </ul>
+                </div>
+                <div class="activity-section">
+                    <h3>Matériel requis</h3>
+                    <ul>
+                        <li>Questionnaire RIASEC (imprimé ou en ligne).</li>
+                        <li>Profil des secteurs et métiers liés à chaque type RIASEC.</li>
+                        <li>Crayons, surligneurs, feuilles de synthèse.</li>
+                    </ul>
+                </div>
+                <div class="activity-section">
+                    <h3>Déroulement proposé</h3>
+                    <ol>
+                        <li><strong>Présentation (15 min)</strong>&nbsp;: Explication du modèle RIASEC et exemples de métiers associés.</li>
+                        <li><strong>Questionnaire (20 min)</strong>&nbsp;: Les élèves répondent au questionnaire et compilent leurs résultats.</li>
+                        <li><strong>Analyse (15 min)</strong>&nbsp;: Mise en relation des lettres obtenues avec les secteurs de la plateforme.</li>
+                        <li><strong>Plan d'action (10 min)</strong>&nbsp;: Chaque élève identifie deux pistes d'exploration à poursuivre.</li>
+                    </ol>
+                </div>
+                <div class="activity-section">
+                    <h3>Évaluation</h3>
+                    <ul>
+                        <li>Complétion du questionnaire.</li>
+                        <li>Pertinence des liens faits entre le profil et les métiers ciblés.</li>
+                        <li>Engagement dans l'élaboration du plan d'action.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="activite-systeme-scolaire" class="activity-view" style="display:none;">
+            <div class="metiers-header">
+                <h2>Activité Système scolaire</h2>
+                <p>Comprends les différentes voies de formation et planifie ton cheminement scolaire.</p>
+            </div>
+            <div class="activity-content">
+                <div class="activity-section">
+                    <h3>Objectifs pédagogiques</h3>
+                    <ul>
+                        <li>Comprendre les différentes voies de formation au Québec après le secondaire.</li>
+                        <li>Distinguer les parcours liés aux métiers présentés sur la plateforme.</li>
+                        <li>Élaborer un plan personnel de cheminement scolaire.</li>
+                    </ul>
+                </div>
+                <div class="activity-section">
+                    <h3>Compétences visées</h3>
+                    <ul>
+                        <li>Compétence 2&nbsp;: Explorer le système scolaire et professionnel.</li>
+                        <li>Compétence 3&nbsp;: Planifier ses prochaines étapes de formation.</li>
+                    </ul>
+                </div>
+                <div class="activity-section">
+                    <h3>Durée</h3>
+                    <ul>
+                        <li>2 périodes de 60 minutes.</li>
+                    </ul>
+                </div>
+                <div class="activity-section">
+                    <h3>Matériel requis</h3>
+                    <ul>
+                        <li>Schémas du système scolaire québécois.</li>
+                        <li>Fiches descriptives des programmes (DEP, ASP, DEC, etc.).</li>
+                        <li>Tableau interactif ou projecteur.</li>
+                    </ul>
+                </div>
+                <div class="activity-section">
+                    <h3>Déroulement proposé</h3>
+                    <ol>
+                        <li><strong>Présentation (20 min)</strong>&nbsp;: Animation interactive pour présenter les différentes voies de formation.</li>
+                        <li><strong>Étude de cas (40 min)</strong>&nbsp;: En équipes, les élèves reçoivent des profils fictifs et doivent proposer un cheminement adapté.</li>
+                        <li><strong>Recherche individuelle (30 min)</strong>&nbsp;: Chaque élève identifie le parcours qui correspond à ses objectifs et complète une fiche de planification.</li>
+                        <li><strong>Retour collectif (30 min)</strong>&nbsp;: Discussion sur les obstacles possibles et les ressources disponibles.</li>
+                    </ol>
+                </div>
+                <div class="activity-section">
+                    <h3>Évaluation</h3>
+                    <ul>
+                        <li>Analyse des études de cas.</li>
+                        <li>Pertinence du plan personnel rédigé.</li>
+                        <li>Participation aux échanges collectifs.</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -678,6 +962,15 @@
         // Configuration globale
         let allMetiersData = {};
         let isExcelLoaded = false;
+        const defaultNavbarTitle = "(AEP) (DEP) (ASP) (DEC)";
+
+        const activityViews = {
+            "mon-avatar": { id: "monAvatar-view", title: "Activité Mon avatar" },
+            "20t1-secteurs": { id: "activite-20t1-secteurs", title: "Activité 20T1 secteurs" },
+            "mythes-et-realites": { id: "activite-mythes-et-realites", title: "Activité Mythes et réalités" },
+            "riasec": { id: "activite-riasec", title: "Activité RIASEC" },
+            "systeme-scolaire": { id: "activite-systeme-scolaire", title: "Activité Système scolaire" }
+        };
 
         // Données des secteurs
         const sectorsData = {
@@ -1461,11 +1754,18 @@ filename: "technicien-en-logistique-du-transport-profil.jpg", video: "https://ww
         // Affichage des métiers d'un secteur
         function showMetiers(sectorKey) {
             const sector = sectorsData[sectorKey];
-            
+
             document.getElementById('sectors-view').style.display = 'none';
             document.getElementById('metiers-view').style.display = 'block';
-            document.querySelector('.back-button').style.display = 'block';
-            
+            const backButton = document.querySelector('.back-button');
+            if (backButton) {
+                backButton.style.display = 'block';
+            }
+
+            document.querySelectorAll('.activity-view').forEach(view => {
+                view.style.display = 'none';
+            });
+
             updateNavbarTitle(sector.name);
             
             const grid = document.getElementById('metiersGrid');
@@ -1476,16 +1776,40 @@ filename: "technicien-en-logistique-du-transport-profil.jpg", video: "https://ww
             }, 100);
         }
 
-        function showMonAvatar() {
-            // Change le titre de la navbar
-            updateNavbarTitle("Mon avatar");
+        function showActivity(activityKey) {
+            const activity = activityViews[activityKey];
+            if (!activity) {
+                console.warn(`Activité inconnue : ${activityKey}`);
+                return false;
+            }
 
-            // Masquer les autres vues
-            document.getElementById("sectors-view").style.display = "none";
-            document.getElementById("metiers-view").style.display = "none";
+            document.getElementById('sectors-view').style.display = 'none';
+            document.getElementById('metiers-view').style.display = 'none';
 
-            // Afficher Mon Avatar
-            document.getElementById("monAvatar-view").style.display = "block";
+            document.querySelectorAll('.activity-view').forEach(view => {
+                view.style.display = 'none';
+            });
+
+            const targetView = document.getElementById(activity.id);
+            if (targetView) {
+                targetView.style.display = 'block';
+            }
+
+            updateNavbarTitle(activity.title);
+
+            const backButton = document.querySelector('.back-button');
+            if (backButton) {
+                backButton.style.display = 'block';
+            }
+
+            const dropdown = document.getElementById('activitesDropdown');
+            if (dropdown && dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            return false;
         }
 
 
@@ -1535,9 +1859,16 @@ filename: "technicien-en-logistique-du-transport-profil.jpg", video: "https://ww
         function showSectors() {
             document.getElementById('sectors-view').style.display = 'block';
             document.getElementById('metiers-view').style.display = 'none';
-            document.querySelector('.back-button').style.display = 'none';
-            
-            updateNavbarTitle("(AEP) (DEP) (ASP) (DEC)");
+            const backButton = document.querySelector('.back-button');
+            if (backButton) {
+                backButton.style.display = 'none';
+            }
+
+            document.querySelectorAll('.activity-view').forEach(view => {
+                view.style.display = 'none';
+            });
+
+            updateNavbarTitle(defaultNavbarTitle);
         }
 
         // Fonction pour mettre à jour le titre principal de la navbar
