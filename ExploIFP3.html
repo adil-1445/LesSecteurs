@@ -1213,30 +1213,35 @@
         const activityPdfConfig = {
             "mon-avatar": {
                 markdownPath: "ActivteORI/Mon-avatar/fiche-pedagogique.md",
+                pdfPath: "ActivteORI/Mon-avatar/FichePedagogiqueMonAvatar.pdf",
                 filename: "Activite_Mon_avatar.pdf",
                 title: "Activité Mon avatar",
                 inlineMarkdownId: "markdown-mon-avatar"
             },
             "20t1-secteurs": {
                 markdownPath: "ActivteORI/20T1-secteurs/fiche-pedagogique.md",
+                pdfPath: "ActivteORI/20T1-secteurs/FichePedagogique20T1secteurs.pdf",
                 filename: "Activite_20T1_secteurs.pdf",
                 title: "Activité 20T1 secteurs",
                 inlineMarkdownId: "markdown-20t1-secteurs"
             },
             "mythes-et-realites": {
                 markdownPath: "ActivteORI/Mythes-et-realites/fiche-pedagogique.md",
+                pdfPath: "ActivteORI/Mythes-et-realites/FichePedagogiqueMythesEtRealites.pdf",
                 filename: "Activite_Mythes_et_realites.pdf",
                 title: "Activité Mythes et réalités",
                 inlineMarkdownId: "markdown-mythes-et-realites"
             },
             "riasec": {
                 markdownPath: "ActivteORI/RIASEC/fiche-pedagogique.md",
+                pdfPath: "ActivteORI/RIASEC/FichePedagogiqueRIASEC.pdf",
                 filename: "Activite_RIASEC.pdf",
                 title: "Activité RIASEC",
                 inlineMarkdownId: "markdown-riasec"
             },
             "systeme-scolaire": {
                 markdownPath: "ActivteORI/Systeme-scolaire/fiche-pedagogique.md",
+                pdfPath: "ActivteORI/Systeme-scolaire/FichePedagogiqueSystemeScolaire.pdf",
                 filename: "Activite_Systeme_scolaire.pdf",
                 title: "Activité Système scolaire",
                 inlineMarkdownId: "markdown-systeme-scolaire"
@@ -1252,6 +1257,19 @@
             return element ? element.textContent.trim() : "";
         }
 
+        function resolveAssetPath(relativePath) {
+            if (!relativePath) {
+                return "";
+            }
+
+            try {
+                return new URL(relativePath, window.location.href).href;
+            } catch (error) {
+                console.error("Impossible de résoudre le chemin vers l'actif", relativePath, error);
+                return relativePath;
+            }
+        }
+
         async function downloadActivityPdf(activityKey) {
             const config = activityPdfConfig[activityKey];
             if (!config) {
@@ -1259,63 +1277,26 @@
                 return;
             }
 
-            const container = document.getElementById('pdf-export-container');
-            if (!container) {
-                console.error('Conteneur PDF introuvable.');
-                return;
-            }
-
             try {
-                let markdown = "";
-                const inlineMarkdown = getInlineMarkdown(config);
-                const isFileProtocol = window.location.protocol === 'file:';
-
-                if (!isFileProtocol) {
-                    try {
-                        const response = await fetch(config.markdownPath);
-                        if (!response.ok) {
-                            throw new Error(`Fichier introuvable (code ${response.status})`);
-                        }
-
-                        markdown = await response.text();
-                    } catch (networkError) {
-                        if (inlineMarkdown) {
-                            console.warn('Échec du chargement du Markdown via fetch, utilisation du contenu intégré.', networkError);
-                            markdown = inlineMarkdown;
-                        } else {
-                            throw networkError;
-                        }
-                    }
-                } else if (inlineMarkdown) {
-                    markdown = inlineMarkdown;
-                } else {
-                    throw new Error("Contenu Markdown indisponible hors ligne.");
+                if (!config.pdfPath) {
+                    throw new Error("Aucun fichier PDF n'est configuré pour cette activité.");
                 }
 
-                const cleanedMarkdown = markdown.replace(/^#\s.*\n+/, '');
-                const htmlContent = marked.parse(cleanedMarkdown);
+                const pdfUrl = resolveAssetPath(config.pdfPath);
+                const newWindow = window.open(pdfUrl, '_blank', 'noopener');
 
-                container.innerHTML = `
-                    <div class="pdf-document">
-                        <h1>${config.title}</h1>
-                        ${htmlContent}
-                    </div>
-                `;
-
-                const options = {
-                    margin: 15,
-                    filename: config.filename,
-                    image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: { scale: 2, useCORS: true },
-                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-                };
-
-                await html2pdf().set(options).from(container).save();
+                if (!newWindow) {
+                    const link = document.createElement('a');
+                    link.href = pdfUrl;
+                    link.target = '_blank';
+                    link.rel = 'noopener';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
             } catch (error) {
-                console.error('Erreur lors de la génération du PDF :', error);
-                alert("Impossible de générer le PDF pour le moment. Veuillez réessayer plus tard.\n" + error.message);
-            } finally {
-                container.innerHTML = '';
+                console.error('Erreur lors de l\'ouverture du PDF :', error);
+                alert("Impossible d'ouvrir le PDF pour le moment. Veuillez réessayer plus tard.\n" + error.message);
             }
         }
 
