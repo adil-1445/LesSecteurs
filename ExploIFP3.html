@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>(AEP) (DEP) (ASP) (DEC)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js" integrity="sha512-GSULzbXn1E7W6bw1VDOBigT0bDmyNkY+Po1WczwbjAMuHtXXyVKkD1pkk9Vc0zIGIXUxSg+P8Dc6VVViTHCLcA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-y54hY+pN+9ZC80ZMwGg7FpC18JNpDutLCRa14Q6gttxyPjdvVSd1n9YmqmUgYISpJq3xZbC4YV0CP0ztvyFPbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
         * {
             margin: 0;
@@ -283,6 +285,65 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
             color: #2c3e50;
             line-height: 1.6;
+        }
+
+        .download-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 auto 20px auto;
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .download-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.5);
+        }
+
+        .download-button span {
+            font-size: 1.2em;
+        }
+
+        .pdf-export-container {
+            position: fixed;
+            left: -9999px;
+            top: 0;
+            width: 210mm;
+            background: white;
+            padding: 20px;
+            color: #1f2933;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.5;
+        }
+
+        .pdf-export-container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #4c51bf;
+        }
+
+        .pdf-export-container h2 {
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #2c5282;
+        }
+
+        .pdf-export-container ul,
+        .pdf-export-container ol {
+            margin-left: 20px;
+        }
+
+        .pdf-export-container p {
+            margin-bottom: 10px;
         }
 
         .activity-section + .activity-section {
@@ -686,6 +747,9 @@
                 <h2>Activité Mon avatar</h2>
                 <p>Crée un avatar qui représente tes forces, tes intérêts et les métiers qui t'inspirent.</p>
             </div>
+            <button class="download-button" onclick="downloadActivityPdf('mon-avatar')">
+                <span>⬇️</span>Télécharger la fiche PDF
+            </button>
             <div class="activity-content">
                 <div class="activity-section">
                     <h3>Objectifs pédagogiques</h3>
@@ -740,6 +804,9 @@
                 <h2>Activité 20T1 secteurs</h2>
                 <p>Explore les secteurs de formation professionnelle et fais des liens avec tes aspirations.</p>
             </div>
+            <button class="download-button" onclick="downloadActivityPdf('20t1-secteurs')">
+                <span>⬇️</span>Télécharger la fiche PDF
+            </button>
             <div class="activity-content">
                 <div class="activity-section">
                     <h3>Objectifs pédagogiques</h3>
@@ -795,6 +862,9 @@
                 <h2>Activité Mythes et réalités</h2>
                 <p>Démystifie les croyances autour de la formation professionnelle grâce à des échanges dynamiques.</p>
             </div>
+            <button class="download-button" onclick="downloadActivityPdf('mythes-et-realites')">
+                <span>⬇️</span>Télécharger la fiche PDF
+            </button>
             <div class="activity-content">
                 <div class="activity-section">
                     <h3>Objectifs pédagogiques</h3>
@@ -850,6 +920,9 @@
                 <h2>Activité RIASEC</h2>
                 <p>Identifie ton profil RIASEC et relie-le aux métiers présentés dans la plateforme.</p>
             </div>
+            <button class="download-button" onclick="downloadActivityPdf('riasec')">
+                <span>⬇️</span>Télécharger la fiche PDF
+            </button>
             <div class="activity-content">
                 <div class="activity-section">
                     <h3>Objectifs pédagogiques</h3>
@@ -905,6 +978,9 @@
                 <h2>Activité Système scolaire</h2>
                 <p>Comprends les différentes voies de formation et planifie ton cheminement scolaire.</p>
             </div>
+            <button class="download-button" onclick="downloadActivityPdf('systeme-scolaire')">
+                <span>⬇️</span>Télécharger la fiche PDF
+            </button>
             <div class="activity-content">
                 <div class="activity-section">
                     <h3>Objectifs pédagogiques</h3>
@@ -958,6 +1034,8 @@
 
     </div>
 
+    <div id="pdf-export-container" class="pdf-export-container"></div>
+
     <script>
         // Configuration globale
         let allMetiersData = {};
@@ -971,6 +1049,81 @@
             "riasec": { id: "activite-riasec", title: "Activité RIASEC" },
             "systeme-scolaire": { id: "activite-systeme-scolaire", title: "Activité Système scolaire" }
         };
+
+        const activityPdfConfig = {
+            "mon-avatar": {
+                markdownPath: "ActivteORI/Mon-avatar/fiche-pedagogique.md",
+                filename: "Activite_Mon_avatar.pdf",
+                title: "Activité Mon avatar"
+            },
+            "20t1-secteurs": {
+                markdownPath: "ActivteORI/20T1-secteurs/fiche-pedagogique.md",
+                filename: "Activite_20T1_secteurs.pdf",
+                title: "Activité 20T1 secteurs"
+            },
+            "mythes-et-realites": {
+                markdownPath: "ActivteORI/Mythes-et-realites/fiche-pedagogique.md",
+                filename: "Activite_Mythes_et_realites.pdf",
+                title: "Activité Mythes et réalités"
+            },
+            "riasec": {
+                markdownPath: "ActivteORI/RIASEC/fiche-pedagogique.md",
+                filename: "Activite_RIASEC.pdf",
+                title: "Activité RIASEC"
+            },
+            "systeme-scolaire": {
+                markdownPath: "ActivteORI/Systeme-scolaire/fiche-pedagogique.md",
+                filename: "Activite_Systeme_scolaire.pdf",
+                title: "Activité Système scolaire"
+            }
+        };
+
+        async function downloadActivityPdf(activityKey) {
+            const config = activityPdfConfig[activityKey];
+            if (!config) {
+                console.warn(`Aucune configuration PDF pour l'activité ${activityKey}`);
+                return;
+            }
+
+            const container = document.getElementById('pdf-export-container');
+            if (!container) {
+                console.error('Conteneur PDF introuvable.');
+                return;
+            }
+
+            try {
+                const response = await fetch(config.markdownPath);
+                if (!response.ok) {
+                    throw new Error(`Fichier introuvable (code ${response.status})`);
+                }
+
+                const markdown = await response.text();
+                const cleanedMarkdown = markdown.replace(/^#\s.*\n+/, '');
+                const htmlContent = marked.parse(cleanedMarkdown);
+
+                container.innerHTML = `
+                    <div class="pdf-document">
+                        <h1>${config.title}</h1>
+                        ${htmlContent}
+                    </div>
+                `;
+
+                const options = {
+                    margin: 15,
+                    filename: config.filename,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, useCORS: true },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+
+                await html2pdf().set(options).from(container).save();
+            } catch (error) {
+                console.error('Erreur lors de la génération du PDF :', error);
+                alert("Impossible de générer le PDF pour le moment. Veuillez réessayer plus tard.\n" + error.message);
+            } finally {
+                container.innerHTML = '';
+            }
+        }
 
         // Données des secteurs
         const sectorsData = {
