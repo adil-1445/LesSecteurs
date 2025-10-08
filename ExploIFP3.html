@@ -1257,6 +1257,19 @@
             return element ? element.textContent.trim() : "";
         }
 
+        function resolveAssetPath(relativePath) {
+            if (!relativePath) {
+                return "";
+            }
+
+            try {
+                return new URL(relativePath, window.location.href).href;
+            } catch (error) {
+                console.error("Impossible de résoudre le chemin vers l'actif", relativePath, error);
+                return relativePath;
+            }
+        }
+
         async function downloadActivityPdf(activityKey) {
             const config = activityPdfConfig[activityKey];
             if (!config) {
@@ -1269,7 +1282,7 @@
                     throw new Error("Aucun fichier PDF n'est configuré pour cette activité.");
                 }
 
-                const pdfUrl = config.pdfPath;
+                const pdfUrl = resolveAssetPath(config.pdfPath);
                 const newWindow = window.open(pdfUrl, '_blank', 'noopener');
 
                 if (!newWindow) {
